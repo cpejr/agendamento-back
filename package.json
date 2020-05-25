@@ -1,0 +1,17 @@
+{
+  "name": "agendamento-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/cpejr/agendamento-back.git",
+  "author": "Gabriel Alves <gabrielalves98@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
