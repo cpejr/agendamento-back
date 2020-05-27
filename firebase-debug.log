@@ -1,0 +1,53 @@
+[debug] [2020-05-27T18:00:47.477Z] ----------------------------------------------------------------------
+[debug] [2020-05-27T18:00:47.479Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Usuário\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-05-27T18:00:47.480Z] CLI Version:   8.4.0
+[debug] [2020-05-27T18:00:47.480Z] Platform:      win32
+[debug] [2020-05-27T18:00:47.480Z] Node Version:  v14.3.0
+[debug] [2020-05-27T18:00:47.481Z] Time:          Wed May 27 2020 15:00:47 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2020-05-27T18:00:47.481Z] ----------------------------------------------------------------------
+[debug] [2020-05-27T18:00:47.482Z] 
+[debug] [2020-05-27T18:00:47.489Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-05-27T18:00:47.490Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Documents\agendamento-back
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2020-05-27T18:01:01.598Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-05-27T18:01:01.598Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-05-27T18:01:02.045Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 May 2020 18:01:01 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-27T18:01:02.051Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2020-05-27T18:01:02.738Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 May 2020 18:01:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  Using project agendamentocpe (Agendamentocpe) 
+[info] 
+=== Database Setup
+[info] 
+[info] Firebase Realtime Database Rules allow you to define how your data should be
+[info] structured and when your data can be read from and written to.
+[info] 
+[debug] [2020-05-27T18:01:24.659Z] >>> HTTP REQUEST GET https://agendamentocpe.firebaseio.com/.settings/rules.json  
+ 
+[debug] [2020-05-27T18:01:25.592Z] <<< HTTP RESPONSE 200 {"server":"nginx","date":"Wed, 27 May 2020 18:01:25 GMT","content-type":"application/json; charset=utf-8","content-length":"161","connection":"keep-alive","access-control-allow-origin":"*","cache-control":"no-cache","strict-transport-security":"max-age=31556926; includeSubDomains; preload"}
+[debug] [2020-05-27T18:01:25.849Z] Error: EISDIR: illegal operation on a directory, open 'D:\Documents\agendamento-back'
+    at Object.openSync (fs.js:461:3)
+    at Object.writeFileSync (fs.js:1387:35)
+    at Config.writeProjectFile (C:\Users\Usuário\AppData\Roaming\npm\node_modules\firebase-tools\lib\config.js:155:8)
+    at C:\Users\Usuário\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\database.js:25:23
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
