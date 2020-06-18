@@ -1,9 +1,20 @@
 const admin = require("firebase-admin");
 const firebase = require("firebase/app");
+require("dotenv").config();
 
 require("firebase/auth");
 
-const serviceAccont = {
+var firebaseConfig = {
+  apiKey: process.env.FIREBASE_APIKEY,
+  authDomain: process.env.FIREBASE_AUTHDOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASEURL,
+  projectId: process.env.FIREBASE_PROJECTID,
+  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGINGSENDE,
+  appID: process.env.FIREBASE_APPID,
+};
+
+const serviceAccount = {
   type: process.env.ADMIN_TYPE,
   project_id: process.env.ADMIN_PROJECT_ID,
   private_key_id: process.env.ADMIN_PRIVATE_KEY_ID,
@@ -15,21 +26,9 @@ const serviceAccont = {
   auth_provider_x509_cert_url: process.env.ADMIN_AUTH_PROVIDER_X509_CERT_URL,
   client_x509_cert_url: process.env.ADMIN_CLIENT_X509_CERT_URL,
 };
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccont),
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-});
-var firebaseConfig = {
-  apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: process.env.FIREBASE_AUTHDOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASEURL,
-  projectId: process.env.FIREBASE_PROJECTID,
-  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGINGSENDE,
-  appID: process.env.FIREBASE_APPID,
-};
 
 firebase.initializeApp(firebaseConfig);
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: firebaseConfig.databaseURL,
@@ -70,6 +69,7 @@ module.exports = {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((result) => {
+          console.log(result.user.uid + "+" + email);
           resolve(result.user.uid);
         })
         .catch((error) => {
