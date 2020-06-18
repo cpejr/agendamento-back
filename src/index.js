@@ -8,6 +8,7 @@ const routes = require("./routes");
 const { errors } = require("celebrate");
 
 const app = express();
+const AWS = require('aws-sdk');
 const server = http.Server(app);
 
 const port = process.env.PORT || 3333;
@@ -19,6 +20,11 @@ app.listen(port, () => {
   console.log("Listening on port: " + port);
 });
 
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 // Metodos HTTP Get, post, put, delete
 
 // Tipos de parametros
