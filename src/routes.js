@@ -4,6 +4,7 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.REGION });
 const { celebrate, Segments, Joi } = require("celebrate");
 
+var userSchema = require("./models/userSchema");
 const UserController = require("./controllers/UserController");
 const SessionController = require("./controllers/SessionController");
 
@@ -54,5 +55,10 @@ routes.post(
   }),
   SessionController.signin
 );
+
+routes.post("/test", async (req, res) => {
+  const user = await userSchema.create(req.body);
+  return res.json(user);
+});
 
 module.exports = routes;
