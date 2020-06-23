@@ -7,6 +7,7 @@ const { celebrate, Segments, Joi } = require("celebrate");
 var userSchema = require("./models/userSchema");
 const UserController = require("./controllers/UserController");
 const SessionController = require("./controllers/SessionController");
+const ClientController = require("./controllers/ClientController");
 
 var dynamodb = new AWS.DynamoDB();
 
@@ -56,9 +57,15 @@ routes.post(
   SessionController.signin
 );
 
-routes.post("/test", async (req, res) => {
-  const user = await userSchema.create(req.body);
-  return res.json(user);
-});
+// routes.post("/test", async (req, res) => {
+//   const user = await userSchema.create(req.body);
+//   return res.json(user);
+// });
+
+routes.post("/client/create", ClientController.create);
+routes.get("/client/index", ClientController.index);
+routes.get("/client/:id", ClientController.find);
+routes.put("/client/:id", ClientController.update);
+routes.delete("/client/:id", ClientController.delete);
 
 module.exports = routes;
