@@ -1,11 +1,14 @@
 const Data = require('../models/dataSchema');
+const uuid = require("uuid");
+
 
 module.exports = {
     async create(request, response) {
         try{
             const {  id_equipament, temperature, voltage, current } = request.body;
-
+            const id = uuid.v1();
             const data = await Data.create({
+                id,
                 id_equipament,
                 temperature,
                 voltage,

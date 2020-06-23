@@ -7,7 +7,7 @@ dynamoose.aws.sdk.config.update({
 
 const DataSchema = new dynamoose.Schema(
   {
-    id: { type: String, hashKey: true, default: uuid.v1() },
+    id: { type: String, hashKey: true },
     id_equipament: {type: String, required: true},
     temperature: { type: Number, required: true },
     voltage: { type: Number, required: true },
