@@ -4,9 +4,9 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.REGION });
 const { celebrate, Segments, Joi } = require("celebrate");
 
-var userSchema = require("./models/userSchema");
 const UserController = require("./controllers/UserController");
 const SessionController = require("./controllers/SessionController");
+const DataController = require("./controllers/DataController");
 
 var dynamodb = new AWS.DynamoDB();
 
@@ -56,9 +56,10 @@ routes.post(
   SessionController.signin
 );
 
-routes.post("/test", async (req, res) => {
-  const user = await userSchema.create(req.body);
-  return res.json(user);
-});
+
+routes.get('/data/index', DataController.index);
+routes.get('/data/:id', DataController.find_id);
+routes.get('/data/equipament/:id_equipament', DataController.find_id_equipament);
+routes.post('/data/create', DataController.create);
 
 module.exports = routes;
