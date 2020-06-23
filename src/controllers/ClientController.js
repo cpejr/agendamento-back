@@ -1,0 +1,117 @@
+const Client = require("../models/clientSchema");
+const { index } = require("./UserController");
+const uuid = require("uuid");
+
+module.exports = {
+  async create(request, response) {
+    try {
+      const {
+        name,
+        birth,
+        adress,
+        cpf,
+        email,
+        phone,
+        equipment,
+      } = request.body;
+      const id = uuid.v1();
+      const client = await Client.create({
+        id,
+        name,
+        birth,
+        adress,
+        cpf,
+        email,
+        phone,
+        equipment,
+      });
+
+      return response.status(200).json({ notification: "Cliente criado!" });
+    } catch (err) {
+      if (err.message)
+        return response.status(400).json({ notification: err.message });
+
+      console.log("Client creation failed: " + err);
+      return response.status(500).json({
+        notification: "Internal server error while trying to register client",
+      });
+    }
+  },
+
+  async index(request, response) {
+    try {
+      const client = await Client.scan().exec();
+
+      return response.status(200).json({ client });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to validate credentials" });
+    }
+  },
+
+  async find(request, response) {
+    try {
+      const client = await Client.get(request.params.id);
+
+      return response.status(200).json({ client });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to validate credentials" });
+    }
+  },
+
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+
+      const {
+        name,
+        birth,
+        adress,
+        cpf,
+        email,
+        phone,
+        equipment,
+      } = request.body;
+
+      const client = await Client.update(
+        { id },
+        {
+          name,
+          birth,
+          adress,
+          cpf,
+          email,
+          phone,
+          equipment,
+        }
+      );
+
+      return response.status(200).json({ client });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to update items" });
+    }
+  },
+
+  async delete(request, response) {
+    try {
+      const client = await Client.delete(request.params.id);
+
+      return response
+        .status(200)
+        .json({ notification: "Sucessfully deleted item" });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ notification: "Error while trying to delete items" });
+    }
+  },
+};
