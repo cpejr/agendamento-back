@@ -15,18 +15,29 @@ module.exports = {
         equipment,
       } = request.body;
       const id = uuid.v1();
-      const client = await Client.create({
-        id,
-        name,
-        birth,
-        adress,
-        cpf,
-        email,
-        phone,
-        equipment,
-      });
+      const condition = await Client.scan({ cpf: cpf }).exec();
 
-      return response.status(200).json({ notification: "Cliente criado!" });
+      // A condição acima scaneou se o cpf já estava sendo utilizado no BD, abaixo utiliza-se o if para validar
+      // A tabela PRECISA estar criada!
+      if (condition.count === 0) {
+        const client = await Client.create({
+          id,
+          name,
+          birth,
+          adress,
+          cpf,
+          email,
+          phone,
+          equipment,
+        });
+        return response.status(200).json({ notification: "Client created!" });
+      } else {
+        return response
+          .status(400)
+          .json({ notification: "CPF already in use" });
+
+        console.log("Client creation failed: CPF already in use");
+      }
     } catch (err) {
       if (err.message)
         return response.status(400).json({ notification: err.message });

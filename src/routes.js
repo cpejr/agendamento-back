@@ -57,19 +57,66 @@ routes.post(
   SessionController.signin
 );
 
+routes.get("/data/index", DataController.index);
+routes.get("/data/:id", DataController.find_id);
+routes.put("/data/:id", DataController.update);
+routes.delete("/data/:id", DataController.delete);
+routes.get(
+  "/data/equipament/:id_equipament",
+  DataController.find_id_equipament
+);
+routes.post("/data/create", DataController.create);
 
-routes.get('/data/index', DataController.index);
-routes.get('/data/:id', DataController.find_id);
-routes.put('/data/:id', DataController.update);
-routes.delete('/data/:id', DataController.delete);
-routes.get('/data/equipament/:id_equipament', DataController.find_id_equipament);
-routes.post('/data/create', DataController.create);
+//Clients
+routes.post(
+  "/client/create",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().required(),
+      birth: Joi.string().required(),
+      adress: Joi.string().required(),
+      cpf: Joi.string().required(),
+      email: Joi.string().required(),
+      phone: Joi.string().required(),
+      equipment: Joi.number().required(),
+    }),
+  }),
+  ClientController.create
+);
 
-
-routes.post("/client/create", ClientController.create);
 routes.get("/client/index", ClientController.index);
-routes.get("/client/:id", ClientController.find);
-routes.put("/client/:id", ClientController.update);
-routes.delete("/client/:id", ClientController.delete);
+routes.get(
+  "/client/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  ClientController.find
+);
+routes.put(
+  "/client/:id",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().required(),
+      birth: Joi.string().required(),
+      adress: Joi.string().required(),
+      cpf: Joi.string().required(),
+      email: Joi.string().required(),
+      phone: Joi.string().required(),
+      equipment: Joi.number().required(),
+    }),
+  }),
+  ClientController.update
+);
+routes.delete(
+  "/client/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  ClientController.delete
+);
 
 module.exports = routes;
