@@ -8,6 +8,7 @@ const UserController = require("./controllers/UserController");
 const SessionController = require("./controllers/SessionController");
 const ClientController = require("./controllers/ClientController");
 const DataController = require("./controllers/DataController");
+const ModelController = require("./controllers/ModelController");
 
 var dynamodb = new AWS.DynamoDB();
 
@@ -117,6 +118,76 @@ routes.delete(
     }),
   }),
   ClientController.delete
+);
+
+//Models
+routes.post(
+  "/model/create",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      modelName: Joi.string().required(),
+      type: Joi.string().required(),
+      manufacturer: Joi.string().required(),
+      releaseYear: Joi.string().required(),
+      temperatureLimit: Joi.number().required(),
+      currentLimit: Joi.number().required(),
+      voltageLimit: Joi.number().required(),
+    }),
+  }),
+  ModelController.create
+);
+
+routes.get("/model/index", ModelController.index);
+routes.get(
+  "/model/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  ModelController.find_id
+);
+routes.get(
+  "/model/find_model/:model",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      model: Joi.string().required(),
+    }),
+  }),
+  ModelController.find_model
+);
+routes.get(
+  "/model/find_manufacturer/:manufacturer",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      manufacturer: Joi.string().required(),
+    }),
+  }),
+  ModelController.find_manufacturer
+);
+routes.put(
+  "/model/:id",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      modelName: Joi.string().required(),
+      type: Joi.string().required(),
+      manufacturer: Joi.string().required(),
+      releaseYear: Joi.string().required(),
+      temperatureLimit: Joi.number().required(),
+      currentLimit: Joi.number().required(),
+      voltageLimit: Joi.number().required(),
+    }),
+  }),
+  ModelController.update
+);
+routes.delete(
+  "/model/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  ModelController.delete
 );
 
 module.exports = routes;
