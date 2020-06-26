@@ -9,7 +9,7 @@ const equipmentSchema = new dynamoose.Schema(
   {
     id: { type: String, hashKey: true},
     model: { type: String, required: true},
-    lozalization: { type: String, required: true },
+    localization: { type: String, required: true },
     address: { type: String, required: true },
     instalation_date: { type: String, required: true },
     maintenance_date: { type: String, required: true },

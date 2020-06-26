@@ -6,7 +6,7 @@ module.exports = {
     try {
       const {
         model,
-        lozalization,
+        localization,
         address,
         instalation_date,
         maintenance_date,
@@ -23,7 +23,7 @@ module.exports = {
       console.log(model);
         const equipment = await Equipment.create({
             id,
-            lozalization,
+            localization,
             address,
             instalation_date,
             maintenance_date,
@@ -127,7 +127,7 @@ module.exports = {
 
       const {
         model,
-        lozalization,
+        localization,
         address,
         instalation_date,
         maintenance_date,
@@ -141,7 +141,7 @@ module.exports = {
         { id },
         {
             model,
-            lozalization,
+            localization,
             address,
             instalation_date,
             maintenance_date,
