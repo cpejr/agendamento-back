@@ -196,7 +196,7 @@ routes.post(
   "/equipment/create",
   celebrate({
     [Segments.BODY]: Joi.object().keys({
-      model: Joi.string().required(),
+      equipment_model: Joi.string().required(),
       localization:Joi.string().required(),
       address:Joi.string().required(),
       instalation_date:Joi.string().required(),
@@ -223,10 +223,10 @@ routes.get(
 );
 
 routes.get(
-  "/equipment/find_model/:model",
+  "/equipment/find_model/:equipment_model",
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      model: Joi.string().required(),
+      equipment_model: Joi.string().required(),
     }),
   }),
   EquipmentController.find_model
@@ -256,7 +256,7 @@ routes.put(
   "/equipment/:id",
   celebrate({
     [Segments.BODY]: Joi.object().keys({
-      model: Joi.string().required(),
+      equipment_model: Joi.string().required(),
       localization:Joi.string().required(),
       address:Joi.string().required(),
       instalation_date:Joi.string().required(),
