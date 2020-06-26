@@ -197,7 +197,7 @@ routes.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       model: Joi.string().required(),
-      lozalization:Joi.string().required(),
+      localization:Joi.string().required(),
       address:Joi.string().required(),
       instalation_date:Joi.string().required(),
       maintenance_date: Joi.string().required(),
@@ -257,7 +257,7 @@ routes.put(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       model: Joi.string().required(),
-      lozalization:Joi.string().required(),
+      localization:Joi.string().required(),
       address:Joi.string().required(),
       instalation_date:Joi.string().required(),
       maintenance_date: Joi.string().required(),
