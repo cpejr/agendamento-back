@@ -9,6 +9,7 @@ const SessionController = require("./controllers/SessionController");
 const ClientController = require("./controllers/ClientController");
 const DataController = require("./controllers/DataController");
 const ModelController = require("./controllers/ModelController");
+const EquipmentController = require("./controllers/EquipmentController");
 
 var dynamodb = new AWS.DynamoDB();
 
@@ -64,7 +65,7 @@ routes.put("/data/:id", DataController.update);
 routes.delete("/data/:id", DataController.delete);
 routes.get(
   "/data/equipament/:id_equipment",
-  DataController.find_id_equipsment
+  DataController.find_id_equipment
 );
 routes.post("/data/create", DataController.create);
 
@@ -188,6 +189,94 @@ routes.delete(
     }),
   }),
   ModelController.delete
+);
+
+// Equipment
+routes.post(
+  "/equipment/create",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      model: Joi.string().required(),
+      lozalization:Joi.string().required(),
+      address:Joi.string().required(),
+      instalation_date:Joi.string().required(),
+      maintenance_date: Joi.string().required(),
+      last_collect_date: Joi.string().required(),
+      situation: Joi.string().required(),
+      cpf_client:Joi.string().required(),
+      observation:Joi.string().required(),
+    }),
+  }),
+  EquipmentController.create
+);
+
+routes.get("/equipment/index", EquipmentController.index);
+
+routes.get(
+  "/equipment/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  EquipmentController.find_id
+);
+
+routes.get(
+  "/equipment/find_model/:model",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      model: Joi.string().required(),
+    }),
+  }),
+  EquipmentController.find_model
+);
+
+routes.get(
+  "/equipment/find_situation/:situation",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      situation: Joi.string().required(),
+    }),
+  }),
+  EquipmentController.find_situation
+);
+
+routes.get(
+  "/equipment/find_cpf_client/:cpf_client",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      cpf_client: Joi.string().required(),
+    }),
+  }),
+  EquipmentController.find_cpf_client
+);
+
+routes.put(
+  "/equipment/:id",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      model: Joi.string().required(),
+      lozalization:Joi.string().required(),
+      address:Joi.string().required(),
+      instalation_date:Joi.string().required(),
+      maintenance_date: Joi.string().required(),
+      last_collect_date: Joi.string().required(),
+      situation: Joi.string().required(),
+      cpf_client:Joi.string().required(),
+      observation:Joi.string().required(),
+    }),
+  }),
+  EquipmentController.update
+);
+routes.delete(
+  "/equipment/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  EquipmentController.delete
 );
 
 module.exports = routes;
