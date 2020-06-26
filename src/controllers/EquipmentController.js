@@ -5,7 +5,7 @@ module.exports = {
   async create(request, response) {
     try {
       const {
-        model,
+        equipment_model,
         localization,
         address,
         instalation_date,
@@ -18,11 +18,10 @@ module.exports = {
 
       const id = uuid.v1();
 
-      // A condição acima scaneou se o cpf já estava sendo utilizado no BD, abaixo utiliza-se o if para validar
-      // A tabela PRECISA estar criada!
-      console.log(model);
+
         const equipment = await Equipment.create({
             id,
+            equipment_model,
             localization,
             address,
             instalation_date,
@@ -30,8 +29,7 @@ module.exports = {
             last_collect_date,
             situation,
             cpf_client,
-            observation,
-            model,    
+            observation, 
         });
         return response.status(200).json({ notification: "Equipment created!" });
       
@@ -76,8 +74,8 @@ module.exports = {
 
   async find_model(request, response) {
     try {
-      const { model } = request.params;
-      const equipment = await Equipment.scan({ model: model }).exec();
+      const { equipment_model } = request.params;
+      const equipment = await Equipment.scan({ equipment_model: equipment_model }).exec();
       return response.status(200).json({ equipment });
     } catch (err) {
       console.log(err);
@@ -126,7 +124,7 @@ module.exports = {
       const { id } = request.params;
 
       const {
-        model,
+        equipment_model,
         localization,
         address,
         instalation_date,
@@ -140,7 +138,7 @@ module.exports = {
       const equipment = await Equipment.update(
         { id },
         {
-            model,
+            equipment_model,
             localization,
             address,
             instalation_date,
