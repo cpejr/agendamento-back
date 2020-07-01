@@ -1,8 +1,9 @@
 const Client = require("../models/clientSchema");
-const { index } = require("./UserController");
 const uuid = require("uuid");
 
 module.exports = {
+
+  // Criar Cliente
   async create(request, response) {
     try {
       const {
@@ -49,6 +50,7 @@ module.exports = {
     }
   },
 
+  // Buscar todos os clientes
   async index(request, response) {
     try {
       const client = await Client.scan().exec();
@@ -62,6 +64,7 @@ module.exports = {
     }
   },
 
+  // Buscar id
   async find(request, response) {
     try {
       const client = await Client.get(request.params.id);
@@ -75,6 +78,7 @@ module.exports = {
     }
   },
 
+  // Atualizar cliente
   async update(request, response) {
     try {
       const { id } = request.params;
@@ -111,6 +115,7 @@ module.exports = {
     }
   },
 
+  // Deletar cliente
   async delete(request, response) {
     try {
       const client = await Client.delete(request.params.id);
