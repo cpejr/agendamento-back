@@ -2,37 +2,38 @@ const Equipment = require("../models/equipmentSchema");
 const uuid = require("uuid");
 
 module.exports = {
+
+  // Criar equipamentos
   async create(request, response) {
     try {
       const {
+        id_model,
+        id_equipment,
+        cpf_client,
         equipment_model,
-        localization,
-        address,
         instalation_date,
         maintenance_date,
         last_collect_date,
         situation,
-        cpf_client,
         observation,
       } = request.body;
 
       const id = uuid.v1();
 
+      const equipment = await Equipment.create({
+        id,
+        id_model,
+        id_equipment,
+        cpf_client,
+        equipment_model,
+        instalation_date,
+        maintenance_date,
+        last_collect_date,
+        situation,
+        observation,
+      });
+      return response.status(200).json({ notification: "Equipment created!" });
 
-        const equipment = await Equipment.create({
-            id,
-            equipment_model,
-            localization,
-            address,
-            instalation_date,
-            maintenance_date,
-            last_collect_date,
-            situation,
-            cpf_client,
-            observation, 
-        });
-        return response.status(200).json({ notification: "Equipment created!" });
-      
     } catch (err) {
       if (err.message)
         return response.status(400).json({ notification: err.message });
@@ -44,6 +45,7 @@ module.exports = {
     }
   },
 
+  // Buscar todos os equipamentos
   async index(request, response) {
     try {
       const equipment = await Equipment.scan().exec();
@@ -57,6 +59,7 @@ module.exports = {
     }
   },
 
+// Buscar ID
   async find_id(request, response) {
     try {
       const { id } = request.params;
@@ -72,6 +75,7 @@ module.exports = {
     }
   },
 
+  // Buscar modelo
   async find_model(request, response) {
     try {
       const { equipment_model } = request.params;
@@ -87,7 +91,7 @@ module.exports = {
     }
   },
 
-
+// Buscar situação
   async find_situation(request, response) {
     try {
       const { situation } = request.params;
@@ -103,7 +107,7 @@ module.exports = {
     }
   },
 
-
+// Buscar cpf
   async find_cpf_client(request, response) {
     try {
       const { cpf_client } = request.params;
@@ -119,34 +123,37 @@ module.exports = {
     }
   },
 
+// Atualizar dados
   async update(request, response) {
     try {
       const { id } = request.params;
 
       const {
+        id_model,        
+        id_equipment,
+        cpf_client,
         equipment_model,
-        localization,
-        address,
         instalation_date,
         maintenance_date,
         last_collect_date,
         situation,
-        cpf_client,
         observation,
+        work_time,
       } = request.body;
 
       const equipment = await Equipment.update(
         { id },
         {
-            equipment_model,
-            localization,
-            address,
-            instalation_date,
-            maintenance_date,
-            last_collect_date,
-            situation,
-            cpf_client,
-            observation,
+          id_model,
+          id_equipment,
+          cpf_client,
+          equipment_model,
+          instalation_date,
+          maintenance_date,
+          last_collect_date,
+          situation,
+          observation,
+          work_time,
         }
       );
 
@@ -159,6 +166,7 @@ module.exports = {
     }
   },
 
+  //  Deletar equipamento
   async delete(request, response) {
     try {
       const equipment = await Equipment.delete(request.params.id);
@@ -173,4 +181,34 @@ module.exports = {
         .json({ notification: "Error while trying to delete items" });
     }
   },
+
+// Salvar tempo de funcionamento
+  async set_work_time(request, response) {
+    try {
+      const { 
+        id_equipment, 
+        worktime,
+      } = request.body;
+
+      let equipment = await Equipment.scan({ id_equipment: id_equipment }).exec();
+      let update = equipment[0];
+      update.work_time += worktime;
+      let {id, work_time } = update;
+
+      const update_work_time = await Equipment.update(
+        { id },
+        {
+          work_time
+        }
+      );
+      return response.status(200).json({ update_work_time });
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({ notification: "Error while trying to set work time" });
+    }
+  }
+
+
+
+
 };

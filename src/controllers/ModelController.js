@@ -3,6 +3,8 @@ const Model = require("../models/modelSchema");
 const uuid = require("uuid");
 
 module.exports = {
+
+  // Criar modelo
   async create(request, response) {
     try {
       const {
@@ -38,6 +40,7 @@ module.exports = {
     }
   },
 
+  // Listar todos os modelos
   async index(request, response) {
     try{
         const data = await Model.scan().exec();
@@ -47,68 +50,60 @@ module.exports = {
         console.log(err);
         return response.status(500).json({ notification: "Internal server error" });
     }
-},
+  },
 
-async find_id(request, response) {
-  try {
-    const model = await Model.get(request.params.id);
+  // Buscar por id
+  async find_id(request, response) {
+    try {
+      const model = await Model.get(request.params.id);
 
-    return response.status(200).json({ model });
-  } catch (err) {
-    console.log(err);
-    return response
-      .status(500)
-      .json({ message: "Internal server error while trying to find the model" });
-  }
-},
+      return response.status(200).json({ model });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Internal server error while trying to find the model" });
+    }
+  },
 
-async find_model(request, response) {
-  try {
-    const { model } = request.params;
-    const models = await Model.scan({ modelName: model }).exec();
-    return response.status(200).json({ models });
-  } catch (err) {
-    console.log(err);
-    return response
-      .status(500)
-      .json({
-        notification: "Internal server error while trying to find the model",
-      });
-  }
-},
+  // Buscar por modelo
+  async find_model(request, response) {
+    try {
+      const { model } = request.params;
+      const models = await Model.scan({ modelName: model }).exec();
+      return response.status(200).json({ models });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({
+          notification: "Internal server error while trying to find the model",
+        });
+    }
+  },
 
-async find_manufacturer(request, response) {
-  try {
-    const { manufacturer } = request.params;
-    const models = await Model.scan({ manufacturer: manufacturer }).exec();
-    return response.status(200).json({ models });
-  } catch (err) {
-    console.log(err);
-    return response
-      .status(500)
-      .json({
-        notification: "Internal server error while trying to find the manufacturer",
-      });
-  }
-},
+  // Buscar por fabricante
+  async find_manufacturer(request, response) {
+    try {
+      const { manufacturer } = request.params;
+      const models = await Model.scan({ manufacturer: manufacturer }).exec();
+      return response.status(200).json({ models });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({
+          notification: "Internal server error while trying to find the manufacturer",
+        });
+    }
+  },
 
-async update(request, response) {
-  try {
-    const { id } = request.params;
+  // Atualizar modelos
+  async update(request, response) {
+    try {
+      const { id } = request.params;
 
-    const {
-      modelName,
-      type,
-      manufacturer,
-      releaseYear,
-      temperatureLimit,
-      currentLimit,
-      voltageLimit,
-    } = request.body;
-
-    const model = await Model.update(
-      { id },
-      {
+      const {
         modelName,
         type,
         manufacturer,
@@ -116,30 +111,43 @@ async update(request, response) {
         temperatureLimit,
         currentLimit,
         voltageLimit,
-      }
-    );
+      } = request.body;
 
-    return response.status(200).json({ model });
-  } catch (err) {
-    console.log(err);
-    return response
-      .status(500)
-      .json({ message: "Error while trying to update items" });
-  }
-},
+      const model = await Model.update(
+        { id },
+        {
+          modelName,
+          type,
+          manufacturer,
+          releaseYear,
+          temperatureLimit,
+          currentLimit,
+          voltageLimit,
+        }
+      );
 
-async delete(request, response) {
-  try {
-    const model = await Model.delete(request.params.id);
+      return response.status(200).json({ model });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to update items" });
+    }
+  },
 
-    return response
-      .status(200)
-      .json({ notification: "Sucessfully deleted item" });
-  } catch (err) {
-    console.log(err);
-    return response
-      .status(500)
-      .json({ notification: "Error while trying to delete items" });
-  }
-},
+  // Deletar modelo
+  async delete(request, response) {
+    try {
+      const model = await Model.delete(request.params.id);
+
+      return response
+        .status(200)
+        .json({ notification: "Sucessfully deleted item" });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ notification: "Error while trying to delete items" });
+    }
+  },
 };

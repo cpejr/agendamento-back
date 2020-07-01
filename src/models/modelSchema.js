@@ -6,6 +6,7 @@ dynamoose.aws.sdk.config.update({
 
 const modelSchema = new dynamoose.Schema(
   {
+    id: { type: String, hashKey: true },
     modelName: { type: String, required: true },
     type: { type: String, required: true },
     manufacturer: { type: String, required: true },
@@ -13,7 +14,7 @@ const modelSchema = new dynamoose.Schema(
     temperatureLimit: { type: Number, required: true }, 
     currentLimit: { type: Number, required: true },
     voltageLimit: { type: Number, required: true },
-    id: { type: String, hashKey: true },
+    
   },
   { timestamps: true }
 );

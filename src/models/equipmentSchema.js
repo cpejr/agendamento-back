@@ -1,5 +1,4 @@
 const dynamoose = require("dynamoose");
-const uuid = require("uuid");
 
 dynamoose.aws.sdk.config.update({
   region: process.env.REGION,
@@ -8,15 +7,16 @@ dynamoose.aws.sdk.config.update({
 const equipmentSchema = new dynamoose.Schema(
   {
     id: { type: String, hashKey: true},
-    equipment_model: { type: String, required: true},
-    localization: { type: String, required: true },
-    address: { type: String, required: true },
-    instalation_date: { type: String, required: true },
-    maintenance_date: { type: String, required: true },
-    last_collect_date: { type: String, required: true },
-    situation: { type: String, required: true },
+    id_equipment: { type: String, required: true},
+    id_model: { type: String, required: true },
     cpf_client: { type: String, required: true },
-    observation: { type: String, required: true },
+    equipment_model: { type: String, required: true},
+    instalation_date: { type: String, required: true },
+    maintenance_date: { type: String},
+    last_collect_date: { type: String},
+    situation: { type: String, required: true },
+    observation: { type: String},
+    work_time: { type:Number, required: true, default: 0},
   },
   { timestamps: true }
 );
