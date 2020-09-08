@@ -10,6 +10,7 @@ clientValidate.createClient = {
     cpf: Joi.string().required(),
     email: Joi.string().required(),
     phone: Joi.string().required(),
+    role: Joi.string().required(),
     equipment: Joi.number(),
   })
 }
@@ -28,6 +29,7 @@ clientValidate.updateClient = {
     cpf: Joi.string(),
     email: Joi.string(),
     phone: Joi.string(),
+    role: Joi.string(),
     equipment: Joi.number(),
   })
 }

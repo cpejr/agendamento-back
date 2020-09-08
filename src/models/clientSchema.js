@@ -13,6 +13,7 @@ const clientSchema = new dynamoose.Schema(
     cpf: { type: String, required: true }, //CPF unico
     email: { type: String, required: true },
     phone: { type: String, required: true },
+    role: { type: String, required: true },
     // talvez equipment n seja util
     equipment: { type: Number },
   },

@@ -13,6 +13,7 @@ module.exports = {
         cpf,
         email,
         phone,
+        role,
         equipment,
       } = request.body;
       const id = uuid.v1();
@@ -29,6 +30,7 @@ module.exports = {
           cpf,
           email,
           phone,
+          role,
           equipment,
         });
         return response.status(200).json({ notification: "Client created!" });
@@ -90,6 +92,7 @@ module.exports = {
         cpf,
         email,
         phone,
+        role,
         equipment,
       } = request.body;
 
@@ -102,6 +105,7 @@ module.exports = {
           cpf,
           email,
           phone,
+          role,
           equipment,
         }
       );
