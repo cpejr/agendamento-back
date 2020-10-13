@@ -11,10 +11,10 @@ const modelSchema = new dynamoose.Schema(
     type: { type: String, required: true },
     manufacturer: { type: String, required: true },
     releaseYear: { type: String, required: true },
-    temperatureLimit: { type: Number, required: true }, 
+    temperatureLimit: { type: Number, required: true },
     currentLimit: { type: Number, required: true },
     voltageLimit: { type: Number, required: true },
-    
+
   },
   { timestamps: true }
 );

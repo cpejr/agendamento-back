@@ -21,6 +21,10 @@ const modelValidate = require("./validators/ModelValidator");
 const EquipmentController = require("./controllers/EquipmentController");
 const equipmentValidate = require("./validators/EquipmentValidator");
 
+//Teste Eletronica
+const TestEquipmentController = require("./controllers/TestEquipmentController");
+const testEquipmentValidate = require("./validators/TestEquipmentValidator");
+
 var dynamodb = new AWS.DynamoDB();
 
 routes.get("/", function (request, response) {
@@ -50,10 +54,10 @@ routes.get("/data/equipament/:id_equipment", DataController.find_id_equipment);
 routes.post("/data/create", DataController.create);
 
 //Clients
-routes.post("/client/create",celebrate(clientValidate.createClient), ClientController.create);
+routes.post("/client/create", celebrate(clientValidate.createClient), ClientController.create);
 routes.get("/client/index", ClientController.index);
-routes.get("/client/:id",celebrate(clientValidate.getClientbyId),ClientController.find);
-routes.put("/client/:id",celebrate(clientValidate.updateClient),ClientController.update);
+routes.get("/client/:id", celebrate(clientValidate.getClientbyId), ClientController.find);
+routes.put("/client/:id", celebrate(clientValidate.updateClient), ClientController.update);
 routes.delete("/client/:id", celebrate(clientValidate.deleteClient), ClientController.delete);
 
 //Models
@@ -63,11 +67,11 @@ routes.get("/model/:id", celebrate(modelValidate.getId), ModelController.find_id
 routes.get("/model/find_model/:model", celebrate(modelValidate.getModel), ModelController.find_model);
 routes.get("/model/find_manufacturer/:manufacturer", celebrate(modelValidate.findManufacturer), ModelController.find_manufacturer);
 routes.put("/model/:id", celebrate(modelValidate.updateModel), ModelController.update);
-routes.delete( "/model/:id", celebrate(modelValidate.deleteModel), ModelController.delete);
+routes.delete("/model/:id", celebrate(modelValidate.deleteModel), ModelController.delete);
 
 // Equipment
 routes.post("/equipment/create", celebrate(equipmentValidate.create), EquipmentController.create);
-routes.get("/equipment/index",  EquipmentController.index);
+routes.get("/equipment/index", EquipmentController.index);
 routes.get("/equipment/:id", celebrate(equipmentValidate.getEquipmentById), EquipmentController.find_id);
 routes.get("/equipment/find_model/:equipment_model", celebrate(equipmentValidate.getEquipmentByModel), EquipmentController.find_model);
 routes.get("/equipment/find_situation/:situation", celebrate(equipmentValidate.getEquipmentBySituation), EquipmentController.find_situation);
@@ -76,6 +80,8 @@ routes.put("/equipment/:id", celebrate(equipmentValidate.updateEquipment), Equip
 routes.delete("/equipment/:id", celebrate(equipmentValidate.deleteEquipment), EquipmentController.delete);
 routes.post('/equipment/worktime', celebrate(equipmentValidate.equipmentWorkTime), EquipmentController.set_work_time);
 
-
+//TestTemperature - rotas de teste
+routes.post("/testequipment/create", celebrate(testEquipmentValidate.createTestEquipment), TestEquipmentController.create);
+routes.get("/testequipment/index", TestEquipmentController.index);
 
 module.exports = routes;
