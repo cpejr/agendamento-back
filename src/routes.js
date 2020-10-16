@@ -53,6 +53,9 @@ routes.delete("/data/:id", DataController.delete);
 routes.get("/data/equipament/:id_equipment", DataController.find_id_equipment);
 routes.post("/data/create", DataController.create);
 
+//teste eletronica na rota data
+routes.post("/data/teste", DataController.testCreate);
+
 //Clients
 routes.post("/client/create", celebrate(clientValidate.createClient), ClientController.create);
 routes.get("/client/index", ClientController.index);
