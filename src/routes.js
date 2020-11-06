@@ -51,7 +51,7 @@ routes.get("/data/:id", DataController.find_id);
 routes.put("/data/:id", DataController.update);
 routes.delete("/data/:id", DataController.delete);
 routes.get("/data/equipament/:id_equipment", DataController.find_id_equipment);
-routes.get("/data/equipamentDate/:id_equipment", DataController.find_id_equipment_date);
+routes.post("/data/equipamentDate/:id_equipment", DataController.find_id_equipment_date);
 routes.post("/data/create", DataController.create);
 
 //teste eletronica na rota data
