@@ -76,6 +76,7 @@ module.exports = {
     try {
       const { id_equipment } = request.params;
       const minDate = new Date(request.body.minDate)
+      const numOfElements = request.body.numOfElements
 
       let data = await Data
         .scan({ id_equipment: { eq: id_equipment } })
@@ -92,6 +93,17 @@ module.exports = {
           }
           return 0;
         });
+
+      const tamanho = data.length
+      const steps = data.length > numOfElements ? Math.floor(data.length / numOfElements) : 1
+      let i = 0;
+      data = data
+        .filter((data, index) => {
+          if (index % steps === 0 && i < numOfElements) {
+            i++
+            return true;
+          }
+        })
 
       return response.status(200).json({ data });
     } catch (err) {
