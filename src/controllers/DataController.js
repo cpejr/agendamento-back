@@ -71,6 +71,25 @@ module.exports = {
     }
   },
 
+  async find_id_equipment_date(request, response) {
+    try {
+      const { id_equipment } = request.params;
+      const { minDate } = request.body;
+
+      const data = await Data
+        .scan({ id_equipment: id_equipment }).scan({ createdAt: minDate });
+
+      return response.status(200).json({ data });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({
+          notification: "Internal server error while trying to find the data",
+        });
+    }
+  },
+
   async update(request, response) {
     try {
       const { id } = request.params;
