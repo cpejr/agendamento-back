@@ -4,6 +4,19 @@ const uuid = require("uuid");
 const User = require("../models/userSchema");
 
 module.exports = {
+  async find(request, response) {
+    try {
+      const user = await User.get(request.params.id);
+
+      return response.status(200).json({ user });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to validate credentials" });
+    }
+  },
+
   async index(request, response) {
     try {
       const user = await User.scan().exec();
