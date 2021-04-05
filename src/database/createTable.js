@@ -1,7 +1,7 @@
 /*const AWS = require("aws-sdk");
 
 AWS.config.update({
-
+ 
 });
 
 var dynamodb = new AWS.DynamoDB();
@@ -13,7 +13,7 @@ var params = {
     { AttributeName: "name", KeyType: "RANGE" }, //Sort key
   ],
   AttributeDefinitions: [
-    { AttributeName: "id", AttributeType: "N" }, //Partition key
+    { AttributeName: "id", AttributeType: "S" }, //Partition key
     { AttributeName: "name", AttributeType: "S" }, //Sort key
   ],
   ProvisionedThroughput: {
