@@ -7,9 +7,21 @@ dynamoose.aws.sdk.config.update({
 
 const userSchema = new dynamoose.Schema(
   {
-    id: { type: String, hashKey: true, default: uuid.v1() },
-    name: { type: String },
-    nickname: { type: String, required: true },
+    id: { type: String, hashKey: true },
+    name: { type: String, required: true },
+    type: { type: String, required: true },
+    password: { type: String, required: true },
+    birthdate: { type: String, required: true },
+    address: { type: String, required: true },
+    zipcode: { type: String, required: true },
+    cpf: { type: String, optional: true },
+    cnpj: { type: String, optional: true }, //CPF unico
+    email: { type: String, required: true },
+    phonenumber: { type: String, required: true },
+    /*role: { type: String, required: true },
+    // talvez equipment n seja util
+    equipment: { type: Number },
+    nickname: { type: String, required: true },*/
   },
   { timestamps: true }
 );
