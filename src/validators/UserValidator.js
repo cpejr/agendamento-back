@@ -5,11 +5,12 @@ let userValidate = new Object();
 userValidate.create = {
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().required(),
+    address: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().min(6).required(),
     type: Joi.string().valid("PJ", "PF", "Funcionario").required(),
-    cpf: Joi.string().required(),
-    cnpj: Joi.string().required(),
+    cpf: Joi.string().optional(),
+    cnpj: Joi.string().optional(),
     birthdate: Joi.string().optional(),
     zipcode: Joi.string().optional(),
     phonenumber: Joi.string().optional(),

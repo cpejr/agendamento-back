@@ -10,7 +10,7 @@ var params = {
   TableName: "User",
   Item: {
     id: {
-      N: "123",
+      S: "1243",
     },
     name: {
       S: "teste",
