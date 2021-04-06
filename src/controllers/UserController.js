@@ -2,15 +2,36 @@
 const FirebaseModel = require("../models/FirebaseModel");
 const uuid = require("uuid");
 const User = require("../models/userSchema");
+
 module.exports = {
+  async find(request, response) {
+    try {
+      const user = await User.get(request.params.id);
+
+      return response.status(200).json({ user });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to validate credentials" });
+    }
+  },
+
   async index(request, response) {
-    //const users = await ('users').select('*');
-    //return response.json(users);
-    return response;
+    try {
+      const user = await User.scan().exec();
+
+      return response.status(200).json({ user });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to validate credentials" });
+    }
   },
 
   async create(request, response) {
-    let client;
+    let user;
     let check;
     try {
       const {
@@ -38,7 +59,7 @@ module.exports = {
         }).exec();
 
         if (condition1.count === 0 || condition3.count === 0) {
-          client = await User.create({
+          user = await User.create({
             id,
             zipcode,
             password,
@@ -67,7 +88,7 @@ module.exports = {
         // A condição acima scaneou se o cpf já estava sendo utilizado no BD, abaixo utiliza-se o if para validar
         // A tabela PRECISA estar criada!
         if (condition2.count === 0 || condition3.count === 0) {
-          client = await User.create({
+          user = await User.create({
             id,
             zipcode,
             password,
@@ -89,19 +110,19 @@ module.exports = {
       if (check) {
         let firebaseUid;
         firebaseUid = await FirebaseModel.createNewUser(
-          client.email,
-          client.password
+          user.email,
+          user.password
         );
-        client.firebase = firebaseUid;
+        user.firebase = firebaseUid;
 
-        delete client.password;
+        delete user.password;
         return response.status(200).json({ notification: "User created!" });
       } else {
         return response
           .status(400)
           .json({ notification: "CPF already in use" });
 
-        console.log("Client creation failed: CPF already in use");
+        console.log("User creation failed: CPF already in use");
       }
 
       //await connection('users').insert(user);
@@ -109,9 +130,9 @@ module.exports = {
       if (err.message)
         return response.status(400).json({ notification: err.message });
 
-      console.log("Client creation failed: " + err);
+      console.log("User creation failed: " + err);
       return response.status(500).json({
-        notification: "Internal server error while trying to register client",
+        notification: "Internal server error while trying to register user",
       });
     }
   },

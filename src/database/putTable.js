@@ -1,7 +1,7 @@
 /*const AWS = require("aws-sdk");
 
 AWS.config.update({
-
+ 
 });
 
 var dynamodb = new AWS.DynamoDB();
@@ -25,10 +25,10 @@ var params = {
       S: "teste",
     },
     cpf: {
-      N: "123",
+      S: "123",
     },
     cnpj: {
-      N: "321",
+      S: "321",
     },
     birthdate: {
       S: "teste]",
