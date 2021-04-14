@@ -37,6 +37,7 @@ routes.get("/", function (request, response) {
 //Users
 routes.get("/users", UserController.index);
 routes.get("/users/:id", UserController.find);
+routes.put("/users/:id", celebrate(userValidate.update), UserController.update);
 routes.post("/user", celebrate(userValidate.create), UserController.create);
 
 //Login
