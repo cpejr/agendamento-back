@@ -37,6 +37,7 @@ routes.get("/", function (request, response) {
 //Users
 routes.get("/users", UserController.index);
 routes.get("/users/:id", UserController.find);
+routes.get("/users/firebase/:firebaseUid", UserController.findByFirebase);
 routes.post("/user", celebrate(userValidate.create), UserController.create);
 
 //Login
@@ -45,6 +46,7 @@ routes.post(
   celebrate(loginValidate.signin),
   SessionController.signin
 );
+routes.get("/verify", SessionController.verifyToken);
 
 //Data
 routes.get("/data/index", DataController.index);

@@ -5,6 +5,7 @@ let userValidate = new Object();
 userValidate.create = {
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().required(),
+    firebaseUid: Joi.string().optional(),
     address: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().min(6).required(),
