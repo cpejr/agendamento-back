@@ -1,7 +1,9 @@
-/*const AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
 AWS.config.update({
- 
+  accessKeyId: "AKIAY5QI3RRLVJXUBP2C",
+  secretAccessKey: "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",
+  region: "sa-east-1",
 });
 
 var dynamodb = new AWS.DynamoDB();
@@ -34,4 +36,4 @@ dynamodb.createTable(params, function (err, data) {
       JSON.stringify(data, null, 2)
     );
   }
-});*/
+});

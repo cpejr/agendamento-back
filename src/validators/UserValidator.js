@@ -9,6 +9,7 @@ userValidate.create = {
     email: Joi.string().required(),
     password: Joi.string().min(6).required(),
     type: Joi.string().valid("PJ", "PF", "Funcionario").required(),
+    active: Joi.string().optional(),
     cpf: Joi.string().optional(),
     cnpj: Joi.string().optional(),
     birthdate: Joi.string().optional(),
@@ -32,8 +33,8 @@ userValidate.update = {
     birthdate: Joi.string().optional(),
     address: Joi.string().optional(),
     phonenumber: Joi.string().optional(),
-    zipcode: Joi.string().optional()
-  })
-}
+    zipcode: Joi.string().optional(),
+  }),
+};
 
 module.exports = userValidate;

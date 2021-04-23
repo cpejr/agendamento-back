@@ -14,6 +14,7 @@ const userSchema = new dynamoose.Schema(
     birthdate: { type: String, required: true },
     address: { type: String, required: true },
     zipcode: { type: String, required: true },
+    active: { type: String, optional: true },
     cpf: { type: String, optional: true },
     cnpj: { type: String, optional: true }, //CPF unico
     email: { type: String, required: true },
