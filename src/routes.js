@@ -35,10 +35,11 @@ routes.get("/", function (request, response) {
 });
 
 //Users
-routes.get("/users", UserController.index);
-routes.get("/users/:id", UserController.find);
 routes.get("/users/firebase/:firebaseUid", UserController.findByFirebase);
-routes.post("/user", celebrate(userValidate.create), UserController.create);
+routes.get("/user/:id", UserController.find);
+routes.put("/user/:id", celebrate(userValidate.update), UserController.update);
+routes.post("/user/create", celebrate(userValidate.create), UserController.create);
+routes.get("/user/index", UserController.index);
 
 //Login
 routes.post(

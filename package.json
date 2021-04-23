@@ -6,7 +6,8 @@
   "author": "Gabriel Alves <gabrielalves98@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.699.0",

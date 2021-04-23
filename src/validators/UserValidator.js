@@ -24,4 +24,17 @@ userValidate.create = {
   }),
 };
 
+userValidate.update = {
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
+  [Segments.BODY]: Joi.object().keys({
+    name: Joi.string().optional(),
+    birthdate: Joi.string().optional(),
+    address: Joi.string().optional(),
+    phonenumber: Joi.string().optional(),
+    zipcode: Joi.string().optional()
+  })
+}
+
 module.exports = userValidate;

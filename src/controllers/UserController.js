@@ -160,4 +160,38 @@ module.exports = {
       });
     }
   },
+
+  // Atualizar usuário
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+
+      const {
+        name,
+        birthdate,
+        address,
+        phonenumber,
+        zipcode
+      } = request.body;
+
+      const updatedUser = await User.update(
+        { id },
+        {
+          name,
+          birthdate,
+          address,
+          phonenumber,
+          zipcode
+        }
+      );
+
+      return response.status(200).json({ updatedUser });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to update user." });
+    }
+  },
+
 };
