@@ -12,11 +12,11 @@ var params = {
   TableName: "User",
   KeySchema: [
     { AttributeName: "id", KeyType: "HASH" }, //Partition key
-    { AttributeName: "name", KeyType: "RANGE" }, //Sort key
+    //Sort key
   ],
   AttributeDefinitions: [
     { AttributeName: "id", AttributeType: "S" }, //Partition key
-    { AttributeName: "name", AttributeType: "S" }, //Sort key
+    //Sort key
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 10,
