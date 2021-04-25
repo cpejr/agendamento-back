@@ -57,7 +57,7 @@ module.exports = {
         complement,
         cpf,
         cnpj,
-        firebaseUid = 'temp',
+        firebaseUid = "temp",
         address,
         id = uuid.v1(),
         email,
@@ -171,7 +171,8 @@ module.exports = {
         birthdate,
         address,
         phonenumber,
-        zipcode
+        zipcode,
+        active,
       } = request.body;
 
       const updatedUser = await User.update(
@@ -181,7 +182,8 @@ module.exports = {
           birthdate,
           address,
           phonenumber,
-          zipcode
+          zipcode,
+          active,
         }
       );
 
@@ -193,5 +195,4 @@ module.exports = {
         .json({ message: "Error while trying to update user." });
     }
   },
-
 };

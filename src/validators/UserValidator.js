@@ -35,6 +35,7 @@ userValidate.update = {
     address: Joi.string().optional(),
     phonenumber: Joi.string().optional(),
     zipcode: Joi.string().optional(),
+    active: Joi.string().optional(),
   }),
 };
 
