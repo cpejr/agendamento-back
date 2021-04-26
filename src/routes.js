@@ -38,8 +38,12 @@ routes.get("/", function (request, response) {
 routes.get("/users/firebase/:firebaseUid", UserController.findByFirebase);
 routes.get("/user/:id", UserController.find);
 routes.put("/user/:id", celebrate(userValidate.update), UserController.update);
-routes.post("/user/create", celebrate(userValidate.create), UserController.create);
-routes.get("/user/index", UserController.index);
+routes.post(
+  "/user/create",
+  celebrate(userValidate.create),
+  UserController.create
+);
+routes.get("/user", UserController.index);
 
 //Login
 routes.post(
