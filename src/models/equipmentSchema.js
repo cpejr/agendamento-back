@@ -17,6 +17,7 @@ const equipmentSchema = new dynamoose.Schema(
     situation: { type: String, required: true },
     observation: { type: String},
     work_time: { type:Number, required: true, default: 0},
+    installation_status: {type: String, default: "pendente"} ,
   },
   { timestamps: true }
 );
