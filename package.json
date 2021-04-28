@@ -6,16 +6,17 @@
   "author": "Gabriel Alves <gabrielalves98@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.699.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "celebrate": "^12.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "dynamoose": "^2.2.1",
+    "dynamoose": "^2.7.3",
     "express": "^4.17.1",
     "firebase": "^7.15.1",
     "firebase-admin": "^8.12.1",

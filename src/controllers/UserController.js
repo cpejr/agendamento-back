@@ -17,6 +17,21 @@ module.exports = {
     }
   },
 
+  async findByFirebase(request, response) {
+    try {
+      const user = await User.scan({
+        firebaseUid: request.params.firebaseUid,
+      }).exec();
+
+      return response.status(200).json({ user });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to validate credentials" });
+    }
+  },
+
   async index(request, response) {
     try {
       const user = await User.scan().exec();
@@ -42,6 +57,7 @@ module.exports = {
         complement,
         cpf,
         cnpj,
+        firebaseUid = "temp",
         address,
         id = uuid.v1(),
         email,
@@ -61,6 +77,7 @@ module.exports = {
         if (condition1.count === 0 || condition3.count === 0) {
           user = await User.create({
             id,
+            firebaseUid,
             zipcode,
             password,
             birthdate,
@@ -90,6 +107,7 @@ module.exports = {
         if (condition2.count === 0 || condition3.count === 0) {
           user = await User.create({
             id,
+            firebaseUid,
             zipcode,
             password,
             birthdate,
@@ -108,12 +126,18 @@ module.exports = {
       }
 
       if (check) {
-        let firebaseUid;
-        firebaseUid = await FirebaseModel.createNewUser(
+        let firebaseId;
+        firebaseId = await FirebaseModel.createNewUser(
           user.email,
           user.password
         );
-        user.firebase = firebaseUid;
+
+        user = await User.update(
+          { id },
+          {
+            firebaseUid: firebaseId,
+          }
+        );
 
         delete user.password;
         return response.status(200).json({ notification: "User created!" });
@@ -134,6 +158,41 @@ module.exports = {
       return response.status(500).json({
         notification: "Internal server error while trying to register user",
       });
+    }
+  },
+
+  // Atualizar usuário
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+
+      const {
+        name,
+        birthdate,
+        address,
+        phonenumber,
+        zipcode,
+        active,
+      } = request.body;
+
+      const updatedUser = await User.update(
+        { id },
+        {
+          name,
+          birthdate,
+          address,
+          phonenumber,
+          zipcode,
+          active,
+        }
+      );
+
+      return response.status(200).json({ updatedUser });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ message: "Error while trying to update user." });
     }
   },
 };

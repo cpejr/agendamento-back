@@ -8,12 +8,14 @@ dynamoose.aws.sdk.config.update({
 const userSchema = new dynamoose.Schema(
   {
     id: { type: String, hashKey: true },
+    firebaseUid: {type: String, optional: true},
     name: { type: String, required: true },
     type: { type: String, required: true },
     password: { type: String, required: true },
     birthdate: { type: String, required: true },
     address: { type: String, required: true },
     zipcode: { type: String, required: true },
+    active: { type: String, optional: true },
     cpf: { type: String, optional: true },
     cnpj: { type: String, optional: true }, //CPF unico
     email: { type: String, required: true },
