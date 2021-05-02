@@ -1,7 +1,7 @@
 /*const AWS = require("aws-sdk");
 
 AWS.config.update({
- 
+  
 });
 
 var dynamodb = new AWS.DynamoDB();
