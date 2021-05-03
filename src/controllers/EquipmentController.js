@@ -16,6 +16,7 @@ module.exports = {
         last_collect_date,
         situation,
         observation,
+        installation_status,
       } = request.body;
 
       const id = uuid.v1();
@@ -31,6 +32,7 @@ module.exports = {
         last_collect_date,
         situation,
         observation,
+        installation_status,
       });
       return response.status(200).json({ notification: "Equipment created!" });
 
@@ -139,6 +141,7 @@ module.exports = {
         situation,
         observation,
         work_time,
+        installation_status
       } = request.body;
 
       const equipment = await Equipment.update(
@@ -154,6 +157,7 @@ module.exports = {
           situation,
           observation,
           work_time,
+          installation_status
         }
       );
 

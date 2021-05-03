@@ -1,56 +1,53 @@
 // const AWS = require("aws-sdk");
 
 // AWS.config.update({
-
+//     accessKeyId: "",
+//     secretAccessKey: "",
+//     region: "",
 // });
 
 // var dynamodb = new AWS.DynamoDB();
 
 // var params = {
 //   TableName: "Equipment",
-//   Item: [
-//     {
-//         work_time: {
-//             N: "0"
-//         },
-//         cpf_client: {
-//             S: "987.654.321-33"
-//         },
-//         situation: {
-//             S: "RevisÒo"
+//   Item: {
+//         id: {
+//             S: "teste"
 //         },
 //         id_equipment: {
 //             S: "1651651645"
 //         },
-//         updatedAt: {
-//             N: "1618429334374"
+//         id_model: {
+//             S: "teste"
 //         },
-//         observation: {
-//             S: "Equipamento de Teste"
+//         cpf_client: {
+//             S: "987.654.321-33"
 //         },
 //         equipment_model: {
 //             S: "Pressurizador de ┴gua Teste"
 //         },
-//         createdAt: {
-//             N: "1618429334374"
-//         },
-//         id_model: {
-//             S: "teste"
-//         },
-//         id: {
-//             S: "teste"
-//         },
 //         instalation_date: {
 //             S: "2020-11-12"
-//         },
-//         equipment_status: {
-//             S: "pendente"
 //         },
 //         maintenance_date: {
 //             S: "teste"
 //         },
-//       },
-//     ]
+//         last_collect_date: {
+//             S: "teste"
+//         },
+//         situation: {
+//             S: "RevisÒo"
+//         },
+//         observation: {
+//             S: "Equipamento de Teste"
+//         },
+//         work_time: {
+//             N: "0"
+//         },    
+//         installation_status: {
+//             S: "pendente"
+//         },
+//     },
 // };
 // dynamodb.putItem(params, function (err, data) {
 //   if (err) {

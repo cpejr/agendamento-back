@@ -14,6 +14,7 @@ equipmentValidate.create = {
     cpf_client:Joi.string().required(),
     observation:Joi.string(),
     work_time:Joi.number(),
+    installation_status: Joi.string(),
   })
 }
 
@@ -54,6 +55,7 @@ equipmentValidate.updateEquipment = {
     cpf_client:Joi.string(),
     observation:Joi.string(),
     work_time:Joi.number(),
+    installation_status: Joi.string(),
   })
 }
 
