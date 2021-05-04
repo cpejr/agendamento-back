@@ -32,8 +32,7 @@ module.exports = {
         situation,
         observation,
       });
-      console.log(equipment);
-      return response.status(200).json({ equipment, notification: "Equipment created!" });
+      return response.status(200).json({ id_equipment:equipment.id, notification: "Equipment created!" });
 
     } catch (err) {
       if (err.message)
