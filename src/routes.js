@@ -56,7 +56,7 @@ routes.put("/data/:id", DataController.update);
 routes.delete("/data/:id", DataController.delete);
 // routes.post("/data/equipmentDate/:id_equipment", DataController.find_id_equipment_date);
 routes.get("/data/equipment/:id_equipment", DataController.find_id_equipment);
-routes.post("/data/create", DataController.create);
+routes.post("/data-equipment/create", DataController.create);
 
 //Clients
 routes.post(
