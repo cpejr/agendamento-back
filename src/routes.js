@@ -54,7 +54,8 @@ routes.get("/data/index", DataController.index);
 routes.get("/data/:id", DataController.find_id);
 routes.put("/data/:id", DataController.update);
 routes.delete("/data/:id", DataController.delete);
-routes.get("/data/equipament/:id_equipment", DataController.find_id_equipment);
+// routes.post("/data/equipmentDate/:id_equipment", DataController.find_id_equipment_date);
+routes.get("/data/equipment/:id_equipment", DataController.find_id_equipment);
 routes.post("/data/create", DataController.create);
 
 //Clients
