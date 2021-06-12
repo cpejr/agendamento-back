@@ -4,16 +4,15 @@ let equipmentValidate = new Object();
 
 equipmentValidate.create = {
   [Segments.BODY]: Joi.object().keys({
+    equipment_code: Joi.string().required(),
     id_model: Joi.string().required(),
-    id_equipment: Joi.string().required(),
-    equipment_model: Joi.string().required(),
-    instalation_date:Joi.string().required(),
-    maintenance_date: Joi.string(),
-    last_collect_date: Joi.string(),
-    situation: Joi.string().required(),
-    cpf_client:Joi.string().required(),
-    observation:Joi.string(),
-    work_time:Joi.number(),
+    installation_date: Joi.string().required(),
+    situation:Joi.string().required(),
+    initial_work: Joi.string().required(),
+    maintenance: Joi.object().optional(),
+    address: Joi.string().optional(),
+    zipcode:Joi.string().optional(),
+    last_visit:Joi.string().optional(),
   })
 }
 

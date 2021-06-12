@@ -5,38 +5,42 @@ module.exports = {
 
   // Criar equipamentos
   async create(request, response) {
+
     try {
       const {
+        equipment_code,
         id_model,
-        id_equipment,
-        cpf_client,
-        equipment_model,
-        instalation_date,
-        maintenance_date,
-        last_collect_date,
+        installation_date,
         situation,
-        observation,
+        // initial_work,
+        maintenance,
+        address,
+        zipcode,
       } = request.body;
+
+      const initial_work = installation_date; // inicialmente
 
       const id = uuid.v1();
 
       const equipment = await Equipment.create({
         id,
+        equipment_code,
         id_model,
-        id_equipment,
-        cpf_client,
-        equipment_model,
-        instalation_date,
-        maintenance_date,
-        last_collect_date,
+        installation_date,
         situation,
-        observation,
+        initial_work,
+        maintenance,
+        address,
+        zipcode,
       });
-      return response.status(200).json({ id_equipment:equipment.id, notification: "Equipment created!" });
+
+      return response.status(200).json({ id: equipment.id, notification: "Equipment created successfully!" });
 
     } catch (err) {
-      if (err.message)
+      if (err.message) {
         return response.status(400).json({ notification: err.message });
+      }
+        
 
       console.log("Equipment creation failed: " + err);
       return response.status(500).json({
