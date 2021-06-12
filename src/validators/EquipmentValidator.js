@@ -24,7 +24,7 @@ equipmentValidate.getEquipmentById = {
 
 equipmentValidate.getEquipmentByModel = {
   [Segments.PARAMS]: Joi.object().keys({
-    equipment_model: Joi.string().required(),
+    id_model: Joi.string().required(),
   })
 }
 
@@ -40,19 +40,17 @@ equipmentValidate.getEquipmentByCPF = {
   })
 }
 
-
 equipmentValidate.updateEquipment = {
   [Segments.BODY]: Joi.object().keys({
-    id_model: Joi.string(),
-    id_equipment: Joi.string(),
-    equipment_model: Joi.string(),
-    instalation_date:Joi.string(),
-    maintenance_date: Joi.string(),
-    last_collect_date: Joi.string(),
-    situation: Joi.string(),
-    cpf_client:Joi.string(),
-    observation:Joi.string(),
-    work_time:Joi.number(),
+    equipment_code: Joi.string().optional(),
+    id_model: Joi.string().optional(),
+    installation_date: Joi.string().optional(),
+    situation:Joi.string().optional(),
+    initial_work: Joi.string().optional(),
+    maintenance: Joi.object().optional(),
+    address: Joi.string().optional(),
+    zipcode:Joi.string().optional(),
+    last_visit:Joi.string().optional(),
   })
 }
 
