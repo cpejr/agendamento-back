@@ -3,6 +3,7 @@ const { Segments, Joi } = require('celebrate');
 let equipmentValidate = new Object();
 
 equipmentValidate.create = {
+
   [Segments.BODY]: Joi.object().keys({
     equipment_code: Joi.string().required(),
     id_model: Joi.string().required(),
@@ -10,9 +11,9 @@ equipmentValidate.create = {
     situation:Joi.string().required(),
     initial_work: Joi.string().required(),
     maintenance: Joi.object().optional(),
-    address: Joi.string().optional(),
-    zipcode:Joi.string().optional(),
-    last_visit:Joi.string().optional(),
+    address: Joi.string().optional().allow("", null),
+    zipcode: Joi.string().optional().allow("", null),
+    last_visit: Joi.string().optional().allow("", null),
   })
 }
 
@@ -48,8 +49,8 @@ equipmentValidate.updateEquipment = {
     situation:Joi.string().optional(),
     initial_work: Joi.string().optional(),
     maintenance: Joi.object().optional(),
-    address: Joi.string().optional(),
-    zipcode:Joi.string().optional(),
+    address: Joi.string().optional().allow("", null),
+    zipcode:Joi.string().optional().allow("", null),
     last_visit:Joi.string().optional(),
   })
 }
