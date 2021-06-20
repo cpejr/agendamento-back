@@ -2,7 +2,6 @@
 const FirebaseModel = require("../models/FirebaseModel");
 const uuid = require("uuid");
 const User = require("../models/userSchema");
-const { deleteById } = require("../validators/UserValidator");
 
 module.exports = {
   async find(request, response) {
@@ -49,21 +48,22 @@ module.exports = {
   async create(request, response) {
     let user;
     let check;
+
     try {
       const {
-        zipcode,
-        password,
-        birthdate,
-        phonenumber,
-        complement,
-        cpf,
-        cnpj,
-        firebaseUid = "temp",
-        address,
         id = uuid.v1(),
-        email,
+        firebaseUid = "temp", // é atualizado mais para frente
         name,
         type,
+        birthdate,
+        email,
+        password,
+
+        phonenumber,
+        active,
+        cpf,
+        cnpj,
+        id_equipments = []
       } = request.body;
 
       if (type === "PJ") {
@@ -79,17 +79,16 @@ module.exports = {
           user = await User.create({
             id,
             firebaseUid,
-            zipcode,
-            password,
-            birthdate,
-            phonenumber,
-            complement,
-            cnpj,
-            address,
-            id,
-            email,
             name,
             type,
+            birthdate,
+            email,
+            password,
+
+            phonenumber,
+            active,
+            cnpj,
+            id_equipments
           });
 
           check = true;
@@ -109,17 +108,15 @@ module.exports = {
           user = await User.create({
             id,
             firebaseUid,
-            zipcode,
-            password,
-            birthdate,
-            phonenumber,
-            complement,
-            cpf,
-            address,
-            id,
-            email,
             name,
             type,
+            birthdate,
+            email,
+
+            phonenumber,
+            active,
+            cpf,
+            id_equipments
           });
 
           check = true;
@@ -127,10 +124,11 @@ module.exports = {
       }
 
       if (check) {
+
         let firebaseId;
         firebaseId = await FirebaseModel.createNewUser(
-          user.email,
-          user.password
+          email,
+          password
         );
 
         user = await User.update(
@@ -170,10 +168,10 @@ module.exports = {
       const {
         name,
         birthdate,
-        address,
         phonenumber,
-        zipcode,
         active,
+        cpf,
+        cnpj
       } = request.body;
 
       const updatedUser = await User.update(
@@ -181,10 +179,10 @@ module.exports = {
         {
           name,
           birthdate,
-          address,
           phonenumber,
-          zipcode,
           active,
+          cpf,
+          cnpj
         }
       );
 
@@ -197,7 +195,7 @@ module.exports = {
     }
   },
 
-  //  Deletar usuário
+  //  Deletar usuário, tanto do banco quanto do firebase
   async deleteById(request, response) {
     try {
 
@@ -205,16 +203,15 @@ module.exports = {
       const userToDelete = await User.query({ id: request.params.id }).exec();
 
       // deleta do firebase
-      // await FirebaseModel.deleteUser(userToDelete[0].firebaseUid).catch(err => {
-      //   if (err) {
-      //     console.log(err);
+      await FirebaseModel.deleteUser(userToDelete[0].firebaseUid).catch(err => {
+        if (err) {
+          console.log(err);
 
-      //     return response
-      //       .status(404)
-      //       .json({ notification: "Error when attempting to delete from Firebase." });
-      //   };
-      // });
-      // await FirebaseModel.deleteUser("ez4IWUKvJpeRMl0tjwXSRVOu2vb2");
+          return response
+            .status(404)
+            .json({ notification: "Error when attempting to delete from Firebase." });
+        };
+      });
 
       // deleta do banco
       User.delete(request.params.id);
