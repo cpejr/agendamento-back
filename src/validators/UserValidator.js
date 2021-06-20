@@ -39,4 +39,10 @@ userValidate.update = {
   }),
 };
 
+userValidate.deleteById = {
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
+};
+
 module.exports = userValidate;

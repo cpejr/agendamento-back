@@ -2,6 +2,7 @@
 const FirebaseModel = require("../models/FirebaseModel");
 const uuid = require("uuid");
 const User = require("../models/userSchema");
+const { deleteById } = require("../validators/UserValidator");
 
 module.exports = {
   async find(request, response) {
@@ -195,4 +196,38 @@ module.exports = {
         .json({ message: "Error while trying to update user." });
     }
   },
+
+  //  Deletar usuário
+  async deleteById(request, response) {
+    try {
+
+      // acha os dados do usuario que se deseja deletar
+      const userToDelete = await User.query({ id: request.params.id }).exec();
+
+      // deleta do firebase
+      // await FirebaseModel.deleteUser(userToDelete[0].firebaseUid).catch(err => {
+      //   if (err) {
+      //     console.log(err);
+
+      //     return response
+      //       .status(404)
+      //       .json({ notification: "Error when attempting to delete from Firebase." });
+      //   };
+      // });
+      // await FirebaseModel.deleteUser("ez4IWUKvJpeRMl0tjwXSRVOu2vb2");
+
+      // deleta do banco
+      User.delete(request.params.id);
+
+      return response
+        .status(200)
+        .json({ notification: "Sucessfully deleted item" });
+    } catch (err) {
+      console.log(err);
+      return response
+        .status(500)
+        .json({ notification: "Error while trying to delete user" });
+    }
+  },
+
 };
