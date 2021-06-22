@@ -46,8 +46,13 @@ module.exports = {
   },
 
   async create(request, response) {
+
     let user;
     let check;
+
+    let existingCPF;
+    let existingCNPJ;
+    let existingEmail;
 
     try {
       const {
@@ -67,15 +72,19 @@ module.exports = {
       } = request.body;
 
       if (type === "PJ") {
-        const condition1 = await User.scan({
+        const responseCNPJ = await User.scan({
           cnpj: cnpj,
         }).exec();
 
-        const condition3 = await User.scan({
+        existingCNPJ = responseCNPJ.count;
+
+        const responseEmail = await User.scan({
           email: email,
         }).exec();
 
-        if (condition1.count === 0 || condition3.count === 0) {
+        existingEmail = responseEmail.count;
+
+        if (existingCNPJ === 0 && existingEmail === 0) {
           user = await User.create({
             id,
             firebaseUid,
@@ -92,19 +101,35 @@ module.exports = {
           });
 
           check = true;
+        } else {
+
+          if (existingCNPJ !== 0) {
+            return response.status(400).json({ notification: "CNPJ já está em uso!" });
+          } else if (existingEmail !== 0) {
+            return response.status(400).json({ notification: "Email já está em uso!" });
+          }
+
         }
-      } else {
-        const condition2 = await User.scan({
-          cpf: cpf,
-        }).exec();
 
-        const condition3 = await User.scan({
-          email: email,
-        }).exec();
+      } else { // type = "PF" || type = "Funcionário"
 
-        // A condição acima scaneou se o cpf já estava sendo utilizado no BD, abaixo utiliza-se o if para validar
-        // A tabela PRECISA estar criada!
-        if (condition2.count === 0 || condition3.count === 0) {
+        const responseCPF = await User
+          .scan({
+            cpf: cpf,
+          })
+          .exec();
+        
+        existingCPF = responseCPF.count;  
+
+        const responseEmail = await User
+          .scan({
+            email: email,
+          })
+          .exec();
+
+        existingEmail = responseEmail.count;
+
+        if (existingCPF === 0 && existingEmail === 0) {
           user = await User.create({
             id,
             firebaseUid,
@@ -120,6 +145,14 @@ module.exports = {
           });
 
           check = true;
+        } else {
+
+          if (existingCPF !== 0) {
+            return response.status(400).json({ notification: "CPF já está em uso!" });
+          } else if (existingEmail !== 0) {
+            return response.status(400).json({ notification: "Email já está em uso!" });
+          }
+
         }
       }
 
@@ -143,12 +176,9 @@ module.exports = {
       } else {
         return response
           .status(400)
-          .json({ notification: "CPF already in use" });
-
-        console.log("User creation failed: CPF already in use");
+          .json({ notification: "Dados inválidos!" });
       }
 
-      //await connection('users').insert(user);
     } catch (err) {
       if (err.message)
         return response.status(400).json({ notification: err.message });
