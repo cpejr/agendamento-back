@@ -5,39 +5,42 @@ module.exports = {
 
   // Criar equipamentos
   async create(request, response) {
+
     try {
       const {
+        equipment_code,
         id_model,
-        id_equipment,
-        cpf_client,
-        equipment_model,
-        instalation_date,
-        maintenance_date,
-        last_collect_date,
+        installation_date,
         situation,
-        observation,
+        // initial_work,
+        maintenance,
+        address,
+        zipcode,
       } = request.body;
+
+      const initial_work = installation_date; // inicialmente
 
       const id = uuid.v1();
 
       const equipment = await Equipment.create({
         id,
+        equipment_code,
         id_model,
-        id_equipment,
-        cpf_client,
-        equipment_model,
-        instalation_date,
-        maintenance_date,
-        last_collect_date,
+        installation_date,
         situation,
-        observation,
+        initial_work,
+        maintenance,
+        address,
+        zipcode,
       });
-      return response.status(200).json({ id_equipment:equipment.id, notification: "Equipment created!" });
+
+      return response.status(200).json({ id: equipment.id, notification: "Equipment created successfully!" });
 
     } catch (err) {
-      if (err.message)
+      if (err.message) {
         return response.status(400).json({ notification: err.message });
-
+      }
+        
       console.log("Equipment creation failed: " + err);
       return response.status(500).json({
         notification: "Internal server error while trying to register equipment",
@@ -55,11 +58,11 @@ module.exports = {
       console.log(err);
       return response
         .status(500)
-        .json({ message: "Error while trying to validate credentials" });
+        .json({ message: "Error while trying to get all equipments" });
     }
   },
 
-// Buscar ID
+// Buscar equipamento por ID
   async find_id(request, response) {
     try {
       const { id } = request.params;
@@ -78,8 +81,8 @@ module.exports = {
   // Buscar modelo
   async find_model(request, response) {
     try {
-      const { equipment_model } = request.params;
-      const equipment = await Equipment.scan({ equipment_model: equipment_model }).exec();
+      const { id_model } = request.params;
+      const equipment = await Equipment.scan({ id_model: id_model }).exec();
       return response.status(200).json({ equipment });
     } catch (err) {
       console.log(err);
@@ -108,52 +111,51 @@ module.exports = {
   },
 
 // Buscar cpf
-  async find_cpf_client(request, response) {
-    try {
-      const { cpf_client } = request.params;
-      const equipment = await Equipment.scan({ cpf_client: cpf_client }).exec();
-      return response.status(200).json({ equipment });
-    } catch (err) {
-      console.log(err);
-      return response
-        .status(500)
-        .json({
-          notification: "Internal server error while trying to find the manufacturer",
-        });
-    }
-  },
+  // async find_cpf_client(request, response) {
+  //   try {
+  //     const { cpf_client } = request.params;
+  //     const equipment = await Equipment.scan({ cpf_client: cpf_client }).exec();
+  //     return response.status(200).json({ equipment });
+  //   } catch (err) {
+  //     console.log(err);
+  //     return response
+  //       .status(500)
+  //       .json({
+  //         notification: "Internal server error while trying to find the manufacturer",
+  //       });
+  //   }
+  // },
 
 // Atualizar dados
   async update(request, response) {
+
     try {
       const { id } = request.params;
 
       const {
-        id_model,        
-        id_equipment,
-        cpf_client,
-        equipment_model,
-        instalation_date,
-        maintenance_date,
-        last_collect_date,
+        equipment_code,
+        id_model,
+        installation_date,
         situation,
-        observation,
-        work_time,
+        // initial_work,
+        maintenance,
+        address,
+        zipcode,
       } = request.body;
+
+      const initial_work = installation_date; // inicialmente
 
       const equipment = await Equipment.update(
         { id },
         {
+          equipment_code,
           id_model,
-          id_equipment,
-          cpf_client,
-          equipment_model,
-          instalation_date,
-          maintenance_date,
-          last_collect_date,
+          installation_date,
           situation,
-          observation,
-          work_time,
+          initial_work,
+          maintenance,
+          address,
+          zipcode,
         }
       );
 
