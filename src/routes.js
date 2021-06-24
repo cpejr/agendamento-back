@@ -121,41 +121,51 @@ routes.post(
   celebrate(equipmentValidate.create),
   EquipmentController.create
 );
+
 routes.get("/equipment/index", EquipmentController.index);
+
 routes.get(
   "/equipment/:id",
   celebrate(equipmentValidate.getEquipmentById),
   EquipmentController.find_id
 );
+
 routes.get(
-  "/equipment/find_model/:equipment_model",
+  "/equipment/find_model/:id_model",
   celebrate(equipmentValidate.getEquipmentByModel),
   EquipmentController.find_model
 );
+
 routes.get(
   "/equipment/find_situation/:situation",
   celebrate(equipmentValidate.getEquipmentBySituation),
   EquipmentController.find_situation
 );
-routes.get(
-  "/equipment/find_cpf_client/:cpf_client",
-  celebrate(equipmentValidate.getEquipmentByCPF),
-  EquipmentController.find_cpf_client
-);
+
+/* Não temos mais associação de CPF / CNPJ com a bomba */
+// routes.get(
+//   "/equipment/find_cpf_client/:cpf_client",
+//   celebrate(equipmentValidate.getEquipmentByCPF),
+//   EquipmentController.find_cpf_client
+// );
+
 routes.put(
   "/equipment/:id",
   celebrate(equipmentValidate.updateEquipment),
   EquipmentController.update
 );
+
 routes.delete(
   "/equipment/:id",
   celebrate(equipmentValidate.deleteEquipment),
   EquipmentController.delete
 );
-routes.post(
-  "/equipment/worktime",
-  celebrate(equipmentValidate.equipmentWorkTime),
-  EquipmentController.set_work_time
-);
+
+/* Não existe mais no banco de dados */
+// routes.post(
+//   "/equipment/worktime",
+//   celebrate(equipmentValidate.equipmentWorkTime),
+//   EquipmentController.set_work_time
+// );
 
 module.exports = routes;
