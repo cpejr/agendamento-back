@@ -68,7 +68,7 @@ module.exports = {
         active,
         cpf,
         cnpj,
-        id_equipments = []
+        id_equipments
       } = request.body;
 
       if (type === "PJ") {
@@ -85,20 +85,23 @@ module.exports = {
         existingEmail = responseEmail.count;
 
         if (existingCNPJ === 0 && existingEmail === 0) {
-          user = await User.create({
-            id,
-            firebaseUid,
-            name,
-            type,
-            birthdate,
-            email,
-            password,
 
-            phonenumber,
-            active,
-            cnpj,
-            id_equipments
-          });
+          const userModel = new User({
+            id: id,
+            firebaseUid: firebaseUid,
+            name: name,
+            type: type,
+            birthdate: birthdate,
+            email: email,
+            password: password,
+
+            phonenumber: phonenumber,
+            active: active,
+            cnpj: cnpj,
+            id_equipments: id_equipments
+          })
+
+          user = await User.create(userModel);
 
           check = true;
         } else {
@@ -130,19 +133,22 @@ module.exports = {
         existingEmail = responseEmail.count;
 
         if (existingCPF === 0 && existingEmail === 0) {
-          user = await User.create({
-            id,
-            firebaseUid,
-            name,
-            type,
-            birthdate,
-            email,
 
-            phonenumber,
-            active,
-            cpf,
-            id_equipments
-          });
+          const userModel = new User({
+            id: id,
+            firebaseUid: firebaseUid,
+            name: name,
+            type: type,
+            birthdate: birthdate,
+            email: email,
+
+            phonenumber: phonenumber,
+            active: active,
+            cpf: cpf,
+            id_equipments: id_equipments
+          })
+
+          user = await User.create(userModel);
 
           check = true;
         } else {
@@ -195,25 +201,9 @@ module.exports = {
     try {
       const { id } = request.params;
 
-      const {
-        name,
-        birthdate,
-        phonenumber,
-        active,
-        cpf,
-        cnpj
-      } = request.body;
-
       const updatedUser = await User.update(
         { id },
-        {
-          name,
-          birthdate,
-          phonenumber,
-          active,
-          cpf,
-          cnpj
-        }
+        request.body // altera SOMENTE o que está no body
       );
 
       return response.status(200).json({ updatedUser });

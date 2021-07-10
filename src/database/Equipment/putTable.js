@@ -10,44 +10,40 @@ AWS.config.update({
 var dynamodb = new AWS.DynamoDB();
 
 var params = {
-  TableName: "User",
+  TableName: "Equipment",
   Item: {
     id: {
       S: "1243",
     },
-    firebaseUid: {
-        S: "abc1234"
+    equipment_code: {
+      S: "1234",
     },
-    name: {
-        S: "nome123"
-    }, 
-    type: {
-        S: "nome123"
-    }, 
-    birthdate: {
-        S: "01/01/1901"
-    }, 
-    email: {
-        S: "email@gmail.com"
-    }, 
-    phonenumber: {
-        S: "319987758933"
-    }, 
-    active: {
-        S: "10/06/2021"
-    }, 
-    cpf: {
-      S: "1234567",
+    id_model: {
+      S: "1234444",
     },
-    cnpj: {
-      S: "99882736312",
+    installation_date: {
+      S: "12/10/2000",
     },
-    id_equipments: {
-      L: [
-        {"S": "id-eqpto1"},
-        {"S": "id-eqpto2"},
-        {"S": "id-eqpto3"},
-      ],
+    situation: {
+      S: "Revisão",
+    },
+    initial_work: {
+      S: "12/10/2000",
+    },
+    maintenance: {
+        M: {
+            date: { S: "01/01/1902" },
+            description: { S: "Foi um desastre!" }
+        }
+    },
+    address: {
+      S: "Rua do desespero, 1000",
+    },
+    zipcode: {
+      S: "31034000",
+    },
+    last_visit: {
+      S: "12/01/2002",
     }
   },
 };

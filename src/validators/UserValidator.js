@@ -14,6 +14,7 @@ userValidate.create = {
     cpf: Joi.string().optional(),
     cnpj: Joi.string().optional(),
     phonenumber: Joi.string().optional(),
+    id_equipments: Joi.array().optional()
   }),
 };
 
@@ -29,6 +30,7 @@ userValidate.update = {
     active: Joi.string().optional(),
     cpf: Joi.string().optional(),
     cnpj: Joi.string().optional(),
+    id_equipments: Joi.array().optional()
   }),
 };
 

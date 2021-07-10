@@ -18,7 +18,15 @@ const userSchema = new dynamoose.Schema(
     active: { type: String, optional: true },
     cpf: { type: String, optional: true },
     cnpj: { type: String, optional: true }, 
-    id_equipments: { type: Array, optional: true }
+    id_equipments: {
+      type: Array,
+      schema: [
+        {
+          type: String
+        },
+      ],
+      optional: true
+    }
   },
   { timestamps: true }
 );
