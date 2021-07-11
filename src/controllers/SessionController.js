@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   async signin(request, response) {
+
     try {
+
       const { email, password } = request.body;
       let firebaseUid;
 
@@ -13,16 +15,16 @@ module.exports = {
       } catch (error) {
         return response.status(400).json({ message: 'Invalid credentials' });
       }
+
       const user = await User.scan({
         firebaseUid: firebaseUid,
       }).exec();
-      if(user===null || user===undefined) {
+
+      if (user === null || user === undefined) {
         return response.status(403).json({ message: 'User not found' });
       }
-      console.log(user);
 
-      const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30d" });
-      return response.status(200).json({ accessToken, user });
+      return response.status(200).json({ user });
       
 
     } catch (error) {
@@ -50,7 +52,7 @@ module.exports = {
           firebaseUid: user.user[0].firebaseUid,
         }).exec();
         return res({ verified: true, user: userFromDatabase });
-    });
+      });
     });
 
     if (verify !== undefined) return response.status(200).json({ valid, user } = verify);
