@@ -47,12 +47,7 @@ module.exports = {
 
   async create(request, response) {
 
-    let user;
     let check;
-
-    let existingCPF;
-    let existingCNPJ;
-    let existingEmail;
 
     try {
       const {
@@ -76,39 +71,33 @@ module.exports = {
           cnpj: cnpj,
         }).exec();
 
-        existingCNPJ = responseCNPJ.count;
-
         const responseEmail = await User.scan({
           email: email,
         }).exec();
 
-        existingEmail = responseEmail.count;
+        if (responseCNPJ.count === 0 && responseEmail.count === 0) {
 
-        if (existingCNPJ === 0 && existingEmail === 0) {
+          await User.create({
+            id,
+            firebaseUid,
+            name,
+            type,
+            birthdate,
+            email,
+            password,
 
-          const userModel = new User({
-            id: id,
-            firebaseUid: firebaseUid,
-            name: name,
-            type: type,
-            birthdate: birthdate,
-            email: email,
-            password: password,
-
-            phonenumber: phonenumber,
-            active: active,
-            cnpj: cnpj,
-            id_equipments: id_equipments
-          })
-
-          user = await User.create(userModel);
+            phonenumber,
+            active,
+            cnpj,
+            id_equipments
+          });
 
           check = true;
         } else {
 
-          if (existingCNPJ !== 0) {
+          if (responseCNPJ.count !== 0) {
             return response.status(400).json({ notification: "CNPJ já está em uso!" });
-          } else if (existingEmail !== 0) {
+          } else if (responseEmail.count !== 0) {
             return response.status(400).json({ notification: "Email já está em uso!" });
           }
 
@@ -121,8 +110,6 @@ module.exports = {
             cpf: cpf,
           })
           .exec();
-        
-        existingCPF = responseCPF.count;  
 
         const responseEmail = await User
           .scan({
@@ -130,32 +117,28 @@ module.exports = {
           })
           .exec();
 
-        existingEmail = responseEmail.count;
+        if (responseCPF.count === 0 && responseEmail.count === 0) {
 
-        if (existingCPF === 0 && existingEmail === 0) {
+          await User.create({
+            id,
+            firebaseUid,
+            name,
+            type,
+            birthdate,
+            email,
 
-          const userModel = new User({
-            id: id,
-            firebaseUid: firebaseUid,
-            name: name,
-            type: type,
-            birthdate: birthdate,
-            email: email,
-
-            phonenumber: phonenumber,
-            active: active,
-            cpf: cpf,
-            id_equipments: id_equipments
-          })
-
-          user = await User.create(userModel);
+            phonenumber,
+            active,
+            cpf,
+            id_equipments
+          });
 
           check = true;
         } else {
 
-          if (existingCPF !== 0) {
+          if (responseCPF.count !== 0) {
             return response.status(400).json({ notification: "CPF já está em uso!" });
-          } else if (existingEmail !== 0) {
+          } else if (responseEmail.count !== 0) {
             return response.status(400).json({ notification: "Email já está em uso!" });
           }
 
@@ -170,14 +153,13 @@ module.exports = {
           password
         );
 
-        user = await User.update(
+        await User.update(
           { id },
           {
             firebaseUid: firebaseId,
           }
         );
 
-        delete user.password;
         return response.status(200).json({ notification: "User created!" });
       } else {
         return response
